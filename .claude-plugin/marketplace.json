@@ -1,0 +1,20 @@
+{
+  "name": "qive-agent-skills",
+  "owner": {
+    "name": "Qive",
+    "email": "contato@qive.com.br"
+  },
+  "metadata": {
+    "description": "Repositório central de skills e agents da Qive: inteligência em linguagem natural sobre os MCPs da Qive. Domínio atual: DFe (NF-e e reforma tributária).",
+    "version": "1.0.0",
+    "license": "MIT"
+  },
+  "plugins": [
+    {
+      "name": "qive-skills",
+      "description": "Skills e agents da Qive para os MCPs da Qive — camada de inteligência em linguagem natural sobre as tools. Domínio atual: DFe (NF-e e reforma tributária).",
+      "source": "./",
+      "strict": false
+    }
+  ]
+}
