@@ -1,0 +1,32 @@
+{
+  "$schema": "https://www.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "qive-skills",
+  "version": "1.0.0",
+  "description": "Repositório central de skills e agents da Qive: inteligência em linguagem natural sobre os MCPs da Qive. Domínio atual: DFe (NF-e e reforma tributária).",
+  "author": {
+    "name": "Qive",
+    "email": "contato@qive.com.br"
+  },
+  "keywords": [
+    "qive",
+    "mcp",
+    "agent-skills",
+    "dfe",
+    "nfe",
+    "nota-fiscal-eletronica",
+    "reforma-tributaria",
+    "ibs",
+    "cbs"
+  ],
+  "mcpServers": {
+    "qive": {
+      "type": "http",
+      "url": "https://mcp.qive.com.br/mcp"
+    }
+  },
+  "skills": ["./skills"],
+  "agents": [
+    "./agents/especialista-reforma-tributaria.md",
+    "./agents/especialista-nfe.md"
+  ]
+}
