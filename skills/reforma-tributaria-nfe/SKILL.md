@@ -82,8 +82,11 @@ Receitas completas (pergunta → chamada da tool → como ler o retorno) para os
   volume de notas a percorrer.
 - **IBS/CBS zerado ≠ erro.** É o comportamento esperado para notas fora do escopo da reforma naquele
   momento da transição.
-- **Sem filtro de NCM e sem `group_by` de NCM/CFOP.** Qualquer busca por NCM ou totalização por
-  NCM/CFOP exige paginar `search_nfe` por completo e agregar no cliente — limitação conhecida das tools.
+- **Sem filtro nem `group_by` de NCM.** Qualquer busca por NCM ou totalização por NCM exige paginar
+  `search_nfe` por completo e agregar no cliente — limitação conhecida das tools. (CFOP é diferente:
+  `cfop` já é filtro em `search_nfe`/`statistics_nfe` e já é dimensão de `group_by` em
+  `statistics_nfe` — ver `references/apuracao-ibs-cbs.md` §4. Como o CFOP é multivalorado por nota, o
+  total por CFOP em `group_by=["cfop"]` pode superar a contagem de notas — comportamento esperado.)
 - **Sem filtro de presença de IBS/CBS.** Checagens de conformidade ("quais notas não apuram") exigem
   inspecionar nota a nota, também por limitação das tools disponíveis hoje.
 - Paginação sempre com o **mesmo conjunto de filtros** entre chamadas, usando o `paginator` da resposta

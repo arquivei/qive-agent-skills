@@ -111,11 +111,22 @@ search_nfe(cfop=["5102"])
 `cfop` **é** filtro nativo de `search_nfe` (no nível da nota). Ler `cfops[]` da nota retornada para
 confirmar; se precisar do CFOP por item, inspecionar `products[].cfop`.
 
-### "Totalizar minhas notas por NCM ou por CFOP" (contagem/soma agregada)
+### "Totalizar minhas notas por NCM" (contagem/soma agregada)
 
-**Não é possível diretamente** — o `group_by` de `statistics_nfe` não tem dimensão `ncm` nem `cfop`,
-limitação conhecida das tools. Workaround: paginar `search_nfe` inteiro e agregar `products[].ncm` /
-`products[].cfop` manualmente no cliente. Caro para contas com centenas de notas.
+**Não é possível diretamente** — o `group_by` de `statistics_nfe` não tem dimensão `ncm`, limitação
+conhecida das tools. Workaround: paginar `search_nfe` inteiro e agregar `products[].ncm` manualmente no
+cliente. Caro para contas com centenas de notas.
+
+### "Totalizar minhas notas por CFOP" (contagem/soma agregada)
+
+```
+statistics_nfe(operation="count", group_by=["cfop"])
+```
+
+**Já é possível diretamente** (dimensão `cfop` de `group_by`, nível da nota — não confundir com o CFOP
+por produto). **Como ler:** cada bucket é um CFOP; `bucket.hits` é a contagem de notas que contêm aquele
+CFOP. Como o CFOP é multivalorado por nota, a soma dos `hits` de todos os buckets pode superar o `total`
+de notas do filtro — comportamento esperado, avisar o cliente se ele estranhar a diferença.
 
 ## Foco 4 — Conformidade
 

@@ -173,6 +173,18 @@ statistics_nfe(operation="count", group_by=["cnpj_emitter"])
 ```
 **Como ler:** um bucket por CNPJ emitente; útil para ranking de fornecedores por volume de notas.
 
+### "Quantas notas por CFOP?" / "Totalizar por tipo de operação (CFOP)"
+
+```
+statistics_nfe(operation="count", group_by=["cfop"])
+```
+**Como ler:** um bucket por CFOP presente nas notas; `bucket.value` é o código CFOP e `bucket.hits` a
+contagem. **Atenção:** o CFOP é multivalorado por nota — uma NF-e com produtos de CFOPs diferentes é
+contabilizada em cada bucket correspondente, então a soma de todos os `hits` pode ultrapassar o `total`
+de notas do filtro. Isso é esperado, não um erro. Para restringir a contagem a um CFOP específico em vez
+de agrupar por todos, use o filtro `cfop=["<código>"]` (ver `search_nfe(cfop=[...])` acima) combinado com
+`operation="count"` sem `group_by`.
+
 ### "Valor total emitido por empresa no mês"
 
 ```
@@ -255,6 +267,6 @@ arredondando para cima).
 - `search_nfe` aceita `emission_date_start`/`emission_date_end` (`AAAA-MM-DD`, inclusive, mesma
   semântica do `statistics_nfe`) para mirar ou ampliar o período buscado — 90 dias é só o default
   quando nenhuma das duas é informada. Veja a receita "Notas emitidas entre duas datas" abaixo.
-- Não existe filtro por NCM em `search_nfe` nem dimensão `ncm`/`cfop` em `group_by` — limitação
-  conhecida das tools do MCP da Qive.
+- Não existe filtro por NCM em `search_nfe` nem dimensão `ncm` em `group_by` — limitação conhecida das
+  tools do MCP da Qive. (`cfop` **já é** uma dimensão válida de `group_by`, ver receita acima.)
 - Não existe filtro de faixa de valor (`value_min`/`value_max`) — mesma limitação.

@@ -76,10 +76,15 @@ reforma), use os campos por produto dentro de cada `NFe`:
 - `products[].cfop` — CFOP do produto.
 
 Esses campos só existem dentro da resposta de `search_nfe` (dentro de `products[]` de cada nota) — não
-há filtro de NCM nem dimensão de agrupamento por NCM/CFOP em nenhuma das duas tools hoje (ver seção 5).
-O `cfop` **pode** ser usado como filtro de busca em `search_nfe` (parâmetro `cfop`, no nível da nota, não
-do produto) e também existe como filtro/atributo em `statistics_nfe`, mas isso filtra pela nota, não
-agrupa produtos por CFOP.
+há filtro nem dimensão de agrupamento por **NCM** em nenhuma das duas tools hoje (ver seção 5).
+
+O `cfop`, ao contrário do NCM, tem suporte mais completo — mas sempre no **nível da nota** (campo
+`CFOPs`), não do produto: (1) filtro `cfop` em `search_nfe` e `statistics_nfe`; (2) dimensão `cfop` de
+`group_by` em `statistics_nfe`, que totaliza notas por CFOP. Como uma nota pode ter itens com CFOPs
+distintos (campo multivalorado), `group_by=["cfop"]` conta a mesma nota em cada CFOP presente nela — a
+soma dos `hits` de todos os buckets pode superar o `total` de notas do filtro, o que é esperado, não
+erro. Nada disso agrupa **produtos** por CFOP — para o CFOP por item (`products[].cfop`, que pode
+diferir do CFOP da nota), é preciso inspecionar nota a nota como descrito abaixo.
 
 Para inspecionar NCM/CFOP de produtos, portanto: chamar `search_nfe` com os filtros que restringem o
 universo de notas relevante (ex.: `cfop`, `roles`, `cnpjs`), paginar, e olhar `products[].ncm` /
