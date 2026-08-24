@@ -100,7 +100,7 @@ Este repositório é um **marketplace de plugins** do Claude Code (`qive-agent-s
 
 1. Adicione o marketplace (por caminho local, após clonar, ou pela URL do repositório):
    ```
-   /plugin marketplace add ./qive-agent-skills
+   /plugin marketplace add arquivei/qive-agent-skills
    ```
 2. Instale o plugin:
    ```

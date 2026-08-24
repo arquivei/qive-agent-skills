@@ -150,8 +150,14 @@ Aceita **todos os filtros de `search_nfe` da seção 1.1, exceto `paginator`**, 
 | `origin` | origem do documento (ex.: `sefaz`, `upload`) |
 | `cnpj` | CNPJ da conta (a que o filtro se refere) |
 | `cnpj_emitter` | CNPJ do emitente |
+| `cfop` | CFOP presente na nota (campo `CFOPs`, nível da nota — não do produto) |
 
-Não há dimensões `ncm` ou `cfop` — é uma limitação conhecida das tools do MCP da Qive.
+**Atenção ao agrupar por `cfop`:** o campo é multivalorado por nota (uma NF-e pode ter itens com
+CFOPs distintos). A agregação conta a nota em CADA CFOP presente nela, não uma única vez — a soma dos
+`hits` de todos os buckets de CFOP pode, portanto, **superar** o `total` de notas. Isso é o
+comportamento esperado, não um erro de contagem.
+
+Não há dimensão `ncm` — é uma limitação conhecida das tools do MCP da Qive.
 
 ### 2.3 `operation=sum` — atenção
 

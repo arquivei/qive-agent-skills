@@ -34,7 +34,7 @@ faz — invoque.
 - "notas que emiti" / "notas que recebi" (papel: emitente, receptor, transportador, autorizada/citada via autXML)
 - "notas confirmadas" / "manifestação do destinatário"
 - "quantas notas...", "qual o total de notas...", "somar valor das notas..."
-- "notas por estado", "notas por status", "notas por empresa/CNPJ", "notas por mês"
+- "notas por estado", "notas por status", "notas por empresa/CNPJ", "notas por mês", "notas por CFOP"
 - "notas sincronizadas com o ERP", "flag do ERP"
 - "notas com Carta de Correção" / "CC-e"
 - "próxima página", "mais resultados", "paginar"
@@ -51,7 +51,7 @@ Pergunta do cliente sobre NF-e
 ├── É busca/filtro de notas (CNPJ, chave, papel, status, finalidade, manifestação)?
 │   → invocar `dfe-busca-nfe`
 │
-├── É contagem ou soma (por estado, status, empresa, mês)?
+├── É contagem ou soma (por estado, status, empresa, mês, CFOP)?
 │   → invocar `dfe-busca-nfe`
 │
 ├── É sobre devolução, cancelamento, sincronização ERP ou CC-e?

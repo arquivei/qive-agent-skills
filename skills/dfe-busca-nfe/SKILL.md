@@ -48,6 +48,7 @@ Tabela resumida — catálogo completo e mais receitas em `references/catalogo-b
 | "Notas que recebi" | `search_nfe(roles=["received"])` |
 | "Notas confirmadas (manifestação)" | `search_nfe(manifestation_type=["210200"])` |
 | "Quantas notas por estado de origem?" | `statistics_nfe(operation="count", group_by=["state_origin"])` |
+| "Quantas notas por CFOP?" | `statistics_nfe(operation="count", group_by=["cfop"])` |
 | "Valor total emitido por empresa no mês" | `statistics_nfe(operation="sum", group_by=["cnpj"], emission_date_start="AAAA-MM-01", emission_date_end="AAAA-MM-DD")` |
 | "Próxima página" | repetir a chamada anterior com `paginator="<paginator retornado>"` e os MESMOS filtros |
 
@@ -101,9 +102,14 @@ texto ou tabela com os campos relevantes à pergunta (ex.: `number`, `emission_d
   vazio** (`total: 0`) pode ser ausência de papéis concedidos, não necessariamente conta sem notas.
   Detalhes em `references/filtros-e-enums.md` §1.7.
 - **Casos que exigem varrer tudo (custoso):** filtros que não existem hoje — CC-e (`has_cce`),
-  sincronização com ERP (`flag_erp`), NCM, faixa de valor, ou agrupamento por NCM/CFOP — só podem ser
+  sincronização com ERP (`flag_erp`), NCM (filtro nem agrupamento), ou faixa de valor — só podem ser
   respondidos paginando `search_nfe` por completo e filtrando no cliente. São limitações conhecidas das
   tools do MCP da Qive. Avise o cliente do custo (várias chamadas) quando o volume esperado for grande.
+  (CFOP **não** entra nessa lista: já existe como filtro e como dimensão de `group_by` — ver abaixo.)
+- **`group_by=["cfop"]` pode fazer a soma de `hits` superar o `total`:** o CFOP é multivalorado por
+  nota (uma NF-e pode ter produtos com CFOPs diferentes), e a agregação conta a nota em cada CFOP
+  presente. Não é erro de contagem — explique isso ao cliente se ele estranhar a soma dos buckets não
+  bater com o total de notas.
 
 ## Ponteiros
 
